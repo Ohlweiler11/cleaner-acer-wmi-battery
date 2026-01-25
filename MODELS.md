@@ -1,8 +1,8 @@
 # Models
 
-Users have reported that the driver works on the following Acer laptops:
-
 ## Working
+
+Users have reported that the driver works on the following Acer laptops:
 
 - Aspire 3
   - A315-24PT https://github.com/frederik-h/acer-wmi-battery/issues/65
@@ -24,6 +24,9 @@ Users have reported that the driver works on the following Acer laptops:
   - ANV15-51 https://github.com/frederik-h/acer-wmi-battery/issues/71
 - Nitro 16
   - AN16-43-R7N7 https://github.com/frederik-h/acer-wmi-battery/issues/59
+- Nitro V16 AI
+  - ANV16-42 https://github.com/frederik-h/acer-wmi-battery/issues/111;
+             https://github.com/frederik-h/acer-wmi-battery/issues/112
 - Predator
   - Helios Neo 16 (PHN16-71) https://github.com/frederik-h/acer-wmi-battery/issues/59
   - Triton 300 SE https://github.com/frederik-h/acer-wmi-battery/issues/67
