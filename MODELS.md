@@ -18,6 +18,7 @@ Users have reported that the driver works on the following Acer laptops:
   - N3 Urban (EUN314A-51W) https://github.com/frederik-h/acer-wmi-battery/issues/4
 - Nitro 5
   - AN515-44 https://github.com/frederik-h/acer-wmi-battery/issues/77
+  - AN515-57 https://github.com/frederik-h/acer-wmi-battery/issues/88
   - AN515-58 https://github.com/frederik-h/acer-wmi-battery/issues/57
   - AN517-54 https://github.com/frederik-h/acer-wmi-battery/issues/59
 - Nitro V15
