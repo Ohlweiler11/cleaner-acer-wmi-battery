@@ -25,9 +25,9 @@ elif [ "$2" = "calibration" ]; then
 		echo "Calibration process stoped"
 	elif [ "$1" = "status" ]; then
 		if cat /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode; then
-			echo "Status: active"
+			echo "Status: running"
 		else
-			echo "Status: inactive"
+			echo "Status: stopped"
 		fi
 	fi
 fi
