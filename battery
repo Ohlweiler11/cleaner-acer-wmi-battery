@@ -1,6 +1,6 @@
 if [ "$1" = "temperature" ]; then
 	echo "Battery temperature: $(cat /sys/bus/wmi/drivers/acer-wmi-battery/temperature)"
-elif [ "$2" = "health" ]; then
+elif [ "$2" = "health-mode" ]; then
 	if [ "$1" = "enable" ]; then
 		echo 1 | tee /sys/bus/wmi/drivers/acer-wmi-battery/health_mode > /dev/null
 		echo "Battery health mode enabled"

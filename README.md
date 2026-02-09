@@ -71,6 +71,6 @@ The temperature of the battery can be checked by:
 battery temperature
 ```
 
-### Original project
+## Original project
 
 This repository is largely based on [this](https://github.com/frederik-h/acer-wmi-battery) project, but redesigned to have the module be inserted on boot and cleaner commands. Check that repository for more information.
