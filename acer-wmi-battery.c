@@ -284,7 +284,7 @@ static ssize_t temperature_show(struct device_driver *driver, char *buf)
 	if (value > U16_MAX)
 		return -ENXIO;
 
-	return sysfs_emit(buf, "%d\n", (value - 2731) * 100);
+	return sysfs_emit(buf, "%d m°C\n", (value - 2731) * 100);
 }
 
 static ssize_t health_mode_show(struct device_driver *driver, char *buf)

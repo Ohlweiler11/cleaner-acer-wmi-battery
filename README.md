@@ -1,86 +1,76 @@
-# acer-wmi-battery
+# cleaner-acer-wmi-battery
 
 ## Description
 
 This repository contains an experimental Linux kernel driver for the
-battery health control WMI interface of Acer laptops.  It can be used
-to control two battery-related features of Acer laptops that Acer
-provides through the Acer Care Center on Windows: a health mode that
-limits the battery charge to 80% with the goal of preserving your
-battery's capacity and a battery calibration mode which puts your
-battery through a controlled charge-discharge cycle to provide more
-accurate battery capacity estimates. It can also be used to read the
-battery temperature.
+battery health control WMI interface of Acer laptops. 
+It can be used to control two battery-related features of Acer laptops: health mode and
+calibration mode. It can also be used to read the battery temperature.
 
-The driver has been developed on an Acer Swift 3
-(SF314-34) laptop. Users have reported that it also works on other Acer laptops.
-A list of those models can be found [here](MODELS.md).
+A list of models on which the driver works can be found [here](MODELS.md).
 Any feedback on how it works on Acer laptops not found on this list is appreciated.
 
 ## Building
 
-Make sure that you have the kernel headers for your kernel installed
-and type `make` in the cloned project directory. In more detail,
-on a Debian or Ubuntu system, you can build by:
+On a Debian/Ubuntu system, you can build by:
 ```
 sudo apt install build-essential linux-headers-$(uname -r) git
-git clone https://github.com/frederik-h/acer-wmi-battery.git
+git clone https://github.com/Ohlweiler11/cleaner-acer-wmi-battery
 cd acer-wmi-battery
 make
+echo acer-wmi-battery | sudo tee /etc/modules-load.d/acer-wmi-battery.conf
+sudo mkdir -p /lib/modules/$(uname -r)/kernel/extra/
+sudo cp acer-wmi-battery.ko /lib/modules/$(uname -r)/kernel/extra/
+sudo depmod
+sudo modprobe acer-wmi-battery
+sudo cp battery /usr/local/bin
+sudo chmod +x /usr/local/bin/battery
 ```
+For other systems, use the equivalent command to install the kernel headers for your kernel installed and type.
 
 ## Using
 
-Loading the module without any parameters does not
-change any health or calibration mode settings of your system:
-
-```
-sudo insmod acer-wmi-battery.ko
-```
-
 ### Health mode
 
-The charge limit can then be enabled as follows:
+Sets the charge limit to 80% to preserve battery's capacity.
+To enable it:
 ```
-echo 1 | sudo tee /sys/bus/wmi/drivers/acer-wmi-battery/health_mode
+sudo battery enable health-mode
 ```
-
-Alternatively, you can enable it at module initialization
-time:
+To disable it:
 ```
-sudo insmod acer-wmi-battery.ko enable_health_mode=1
+sudo battery disable health-mode
+```
+To check its status:
+```
+sudo battery status health-mode
 ```
 
 ### Calibration mode
 
-Before attempting the battery calibration, connect
-your laptop to a power supply. The calibration mode
-can be started as follows:
+Puts your battery through a controlled charge-discharge cycle to provide more
+accurate battery capacity estimates. Before attempting the battery calibration, connect
+your laptop to a power supply.
+To start it:
 ```
-echo 1 | sudo tee /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode
+sudo battery start calibration
 ```
-
-The calibration disables health mode and charges
-to 100%. Then it discharges and recharges the battery
-once. This can take a long time and for accurate
-capacity estimates the laptop should not be used
-during this process. After the discharge-charge cycle
-the calibration mode should be manually disabled
-since the WMI event that indicates the completion
-of the calibration is not yet handled by the module:
+After it is finished, you will have to stop it manually by:
 ```
-echo 0 | sudo tee /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode
+sudo battery stop calibration
+```
+To check its status:
+```
+sudo battery status calibration
 ```
 
-### Battery Temperature
+### Battery temperature
 
-The temperature of the battery in millidegree Celsius can be read as follows:
+The temperature of the battery can be checked by:
 ```
-cat /sys/bus/wmi/drivers/acer-wmi-battery/temperature
+battery temperature
 ```
 
-### Related work
+### Original project
 
-There exists [another driver](https://github.com/maxco2/acer-battery-wmi) with
-similar functionality of which I have not been aware when starting the work
-on this driver. See this [issue](https://github.com/frederik-h/acer-wmi-battery/issues/2) for discussion.
+This repository is largely based on [this](https://github.com/frederik-h/acer-wmi-battery) project, but redesigned to have the module be inserted on boot and cleaner commands. Check that repository for more information.
