@@ -17,12 +17,12 @@ elif [ "$2" = "health-mode" ]; then
 elif [ "$2" = "calibration" ]; then
 	if [ "$1" = "start" ]; then
 		echo 1 | tee /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode > /dev/null
-		echo "Starting the charge-discharge-charge cycle"
+		echo "Starting the charge-discharge-charge cycle for battery calibration"
 		echo "The computer must be connected to a power suply and it should not be used during this process"
 		echo "Do not forget to disable calibration mode after it is finished"
 	elif [ "$1" = "stop" ]; then
 		echo 1 | tee /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode > /dev/null
-		echo "Calibration process stoped"
+		echo "Battery calibration process stoped"
 	elif [ "$1" = "status" ]; then
 		if cat /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode; then
 			echo "Status: running"
