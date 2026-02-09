@@ -8,7 +8,7 @@ elif [ "$2" = "health-mode" ]; then
 		echo 0 | tee /sys/bus/wmi/drivers/acer-wmi-battery/health_mode > /dev/null
 		echo "Battery health mode disabled"
 	elif [ "$1" = "status" ]; then
-		if cat /sys/bus/wmi/drivers/acer-wmi-battery/health_mode; then
+		if cat /sys/bus/wmi/drivers/acer-wmi-battery/health_mode > /dev/null; then
 			echo "Status: enabled"
 		else
 			echo "Status: disabled"
@@ -24,7 +24,7 @@ elif [ "$2" = "calibration" ]; then
 		echo 1 | tee /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode > /dev/null
 		echo "Battery calibration process stoped"
 	elif [ "$1" = "status" ]; then
-		if cat /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode; then
+		if cat /sys/bus/wmi/drivers/acer-wmi-battery/calibration_mode > /dev/null; then
 			echo "Status: running"
 		else
 			echo "Status: stopped"
